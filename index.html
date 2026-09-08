@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>for you · birthday</title>
+    <style>
+        * { box-sizing: border-box; }
+        :root {
+            --soft-pink: #f5d6d0;
+            --coral: #d96c6c;
+            --warm: #f3e1dd;
+            --ink: #3a2c2b;
+            --paper: #fbf7f5;
+        }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        /* ––– front cover ––– */
+        #countdownScreen {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--soft-pink);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1.2s ease;
+            flex-direction: column;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .photo-rain {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .floating-img {
+            position: absolute;
+            top: -180px;
+            border-radius: 40% 60% 40% 60% / 50% 40% 60% 50%;
+            border: 4px solid rgba(255,255,255,0.7);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+            object-fit: cover;
+            animation: driftDown linear infinite;
+            opacity: 0.6;
+        }
+        @keyframes driftDown {
+            0% { transform: translateY(0) rotate(0deg) scale(0.9); opacity: 0.3; }
+            20% { opacity: 0.7; }
+            100% { transform: translateY(1400px) rotate(12deg) scale(1.1); opacity: 0.1; }
+        }
+
+        .countdown-content {
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 247, 245, 0.6);
+            backdrop-filter: blur(4px);
+            padding: 2.5rem 2rem;
+            border-radius: 56px 24px 56px 24px;
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.1);
+            max-width: 680px;
+            width: 92%;
+        }
+        .countdown-title {
+            font-size: 1.6rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: var(--ink);
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+        .countdown-timer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px 6px;
+        }
+        .time-box {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 40px;
+            padding: 12px 18px;
+            min-width: 70px;
+            backdrop-filter: blur(2px);
+            border: 1px solid var(--coral);
+        }
+        .time-number {
+            font-size: 2.4rem;
+            font-weight: 500;
+            color: var(--coral);
+            letter-spacing: 1px;
+        }
+        .time-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #5f4a47;
+            display: block;
+            margin-top: 2px;
+        }
+        .locked-message {
+            margin-top: 28px;
+            color: #4f3b38;
+            font-size: 0.95rem;
+            border-top: 1px dashed rgba(150,100,90,0.3);
+            padding-top: 20px;
+            letter-spacing: 0.3px;
+        }
+
+        /* ––– lock ––– */
+        #lockScreen {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(245, 214, 208, 0.9);
+            backdrop-filter: blur(6px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9998;
+        }
+        .lock-box {
+            background: white;
+            padding: 36px 32px 40px;
+            border-radius: 48px 16px 48px 16px;
+            text-align: center;
+            max-width: 360px;
+            width: 90%;
+            box-shadow: 0 20px 48px rgba(0,0,0,0.08);
+            border: 1px solid #eccbc5;
+        }
+        .lock-icon {
+            font-size: 2.8rem;
+            margin-bottom: 8px;
+            opacity: 0.7;
+        }
+        .lock-box h2 {
+            font-weight: 400;
+            font-size: 1.8rem;
+            margin: 6px 0 10px;
+            color: var(--coral);
+        }
+        .lock-box p {
+            color: #4f3b38;
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+        .lock-input {
+            width: 100%;
+            padding: 14px 12px;
+            font-size: 1.1rem;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 60px;
+            margin-bottom: 18px;
+            background: #fcf8f6;
+            letter-spacing: 2px;
+            outline: none;
+            transition: border 0.2s;
+        }
+        .lock-input:focus {
+            border-color: var(--coral);
+        }
+        .lock-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--coral);
+            color: white;
+            border: none;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 6px 12px rgba(180, 80, 70, 0.2);
+        }
+        .lock-btn:hover {
+            background: #b85a5a;
+        }
+        .lock-error {
+            color: #b85a5a;
+            font-size: 0.8rem;
+            margin-top: 12px;
+            height: 20px;
+        }
+
+        /* ––– main ––– */
+        #mainContent {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 12px 60px;
+        }
+
+        .container {
+            background: rgba(255, 247, 245, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 48px 16px 48px 16px;
+            padding: 32px 24px;
+            max-width: 800px;
+            width: 100%;
+            border: 1px solid rgba(255, 215, 205, 0.5);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.04);
+            margin: 16px 0;
+        }
+
+        h1 {
+            font-weight: 400;
+            font-size: 2.2rem;
+            color: var(--coral);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            margin: 0 0 6px;
+        }
+        .cake-img {
+            width: 100px;
+            height: auto;
+            border-radius: 60px 20px 60px 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.04);
+            margin-bottom: 8px;
+            transition: transform 0.3s;
+        }
+        .cake-img:hover {
+            transform: scale(1.01);
+        }
+
+        .hero-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 12px;
+            margin: 28px 0 24px;
+        }
+        .hero-gallery img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 30px 10px 30px 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            transition: 0.2s;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        .hero-gallery img:hover {
+            transform: scale(1.02) rotate(-1deg);
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin: 16px 0 10px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 12px 28px;
+            font-size: 0.95rem;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            font-weight: 400;
+            transition: all 0.2s;
+            background: white;
+            color: var(--ink);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            border: 1px solid #e5d3ce;
+            letter-spacing: 0.5px;
+        }
+        .btn-gift {
+            background: var(--coral);
+            color: white;
+            border: 1px solid var(--coral);
+        }
+        .btn-gift:hover {
+            background: #b85a5a;
+            transform: translateY(-2px);
+        }
+        .btn-message {
+            background: #f3e1dd;
+            color: var(--ink);
+            border: 1px solid #dcc6c0;
+        }
+        .btn-message:hover {
+            background: #ecd9d4;
+            transform: translateY(-2px);
+        }
+
+        .content-panel {
+            display: none;
+            margin-top: 24px;
+            padding: 28px 20px;
+            border-radius: 40px 12px 40px 12px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid #eddad5;
+            animation: fadeSlide 0.5s ease;
+        }
+        .content-panel.active {
+            display: block;
+        }
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(12px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .gift-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px 30px;
+            font-size: 3.4rem;
+            padding: 10px 0;
+            color: #b85a5a;
+        }
+
+        .message-content {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #3f302d;
+            text-align: left;
+            padding: 0 6px;
+        }
+        .message-content h3 {
+            color: var(--coral);
+            text-align: center;
+            font-weight: 400;
+            font-size: 1.6rem;
+            margin: 0 0 16px;
+            letter-spacing: 1px;
+        }
+        .message-content p {
+            margin: 12px 0;
+        }
+
+        /* hearts background */
+        .hearts-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .heart {
+            position: absolute;
+            bottom: -80px;
+            color: rgba(200, 130, 120, 0.12);
+            font-size: 22px;
+            animation: floatUp 14s linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.1; }
+            30% { opacity: 0.2; }
+            100% { transform: translateY(-1200px) rotate(20deg); opacity: 0; }
+        }
+
+        /* music toggle */
+        #musicToggle {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            background: rgba(255, 247, 245, 0.8);
+            backdrop-filter: blur(4px);
+            border: 1px solid #dcc6c0;
+            border-radius: 40px;
+            width: 52px;
+            height: 52px;
+            font-size: 24px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--coral);
+        }
+        #musicToggle:hover {
+            background: var(--coral);
+            color: white;
+            border-color: var(--coral);
+        }
+
+        /* responsive */
+        @media (max-width: 480px) {
+            .countdown-title { font-size: 1.3rem; }
+            .time-number { font-size: 1.8rem; }
+            .container { padding: 24px 16px; }
+            h1 { font-size: 1.8rem; }
+            .hero-gallery { grid-template-columns: repeat(3, 1fr); }
+            .hero-gallery img { height: 90px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- background music (starts playing after unlock) -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="audio/Johnoy Danao - Ikaw at Ako (official music video).mp3" type="audio/mpeg">
+        <!-- fallback: if you have ogg -->
+        <!-- <source src="audio/Johnoy Danao - Ikaw at Ako (official music video).ogg" type="audio/ogg"> -->
+    </audio>
+
+    <!-- FRONT -->
+    <div id="countdownScreen">
+        <div class="photo-rain" id="photoRain"></div>
+        <div class="countdown-content">
+            <div class="countdown-title">wait for it.</div>
+            <div class="countdown-timer">
+                <div class="time-box"><span class="time-number" id="days">00</span><span class="time-label">days</span></div>
+                <div class="time-box"><span class="time-number" id="hours">00</span><span class="time-label">hours</span></div>
+                <div class="time-box"><span class="time-number" id="minutes">00</span><span class="time-label">minutes</span></div>
+                <div class="time-box"><span class="time-number" id="seconds">00</span><span class="time-label">seconds</span></div>
+            </div>
+            <div class="locked-message">opens when the clock stops &mdash; and you turn twenty-four.</div>
+        </div>
+    </div>
+
+    <!-- LOCK -->
+    <div id="lockScreen">
+        <div class="lock-box">
+            <div class="lock-icon">✧</div>
+            <h2>your day</h2>
+            <p>a little password to open your gift.</p>
+            <input type="password" id="passwordInput" class="lock-input" placeholder="· · · · ·" maxlength="10">
+            <button class="lock-btn" onclick="checkPassword()">unlock</button>
+            <div class="lock-error" id="errorMsg"></div>
+        </div>
+    </div>
+
+    <!-- MAIN -->
+    <div id="mainContent">
+        <div class="hearts-bg" id="bgHearts"></div>
+        <div class="container">
+            <h1>
+                <img src="images/cake.jpg" alt="cake" class="cake-img">
+                happy birthday
+            </h1>
+            <p style="color:#5f4a47; font-size:0.95rem; margin-top:-4px;">a little something for you</p>
+
+            <div class="hero-gallery">
+                <img src="images/jo.jpg" alt="photo">
+                <img src="images/jo1.jpg" alt="photo">
+                <img src="images/jo2.jpg" alt="photo">
+                <img src="images/jo3.jpg" alt="photo">
+                <img src="images/jo4.jpg" alt="photo">
+                <img src="images/jo5.jpg" alt="photo">
+                <img src="images/picture5.jpg" alt="photo">
+                <img src="images/picture6.jpg" alt="photo">
+            </div>
+
+            <div class="buttons">
+                <button class="btn btn-gift" onclick="showContent('gift')">gift</button>
+                <button class="btn btn-message" onclick="showContent('message')">letter</button>
+            </div>
+
+            <div id="gift" class="content-panel">
+                <h2 style="color:var(--coral); font-weight:400; margin-top:0;">for you</h2>
+                <p style="color:#4f3b38;">these stay as long as you want them to.</p>
+                <div class="gift-content">
+                    <span>✿</span><span>🌱</span><span>✧</span><span>🌸</span><span>✿</span><span>🌿</span><span>✧</span>
+                </div>
+            </div>
+
+            <div id="message" class="content-panel">
+                <div class="message-content">
+                    <h3>a note</h3>
+                    <p>happy birthday. from the first day, everything felt lighter.</p>
+                    <p>i hope this year brings you quiet joy, good coffee, and the kind of laughter that stays.</p>
+                    <p style="margin-top:20px; text-align:right; color:var(--coral);">— always</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- music toggle button -->
+    <button id="musicToggle" aria-label="music">♫</button>
+
+    <script>
+        const correctPassword = "09102002";
+
+        // photo rain
+        (function createPhotoRain() {
+            const container = document.getElementById('photoRain');
+            for (let i = 0; i < 22; i++) {
+                const img = document.createElement('img');
+                img.src = 'images/her.jpg';
+                img.className = 'floating-img';
+                img.style.left = (5 + Math.random() * 90) + 'vw';
+                const size = 50 + Math.random() * 70;
+                img.style.width = size + 'px';
+                img.style.height = size + 'px';
+                img.style.animationDuration = (10 + Math.random() * 14) + 's';
+                img.style.animationDelay = (Math.random() * 12) + 's';
+                container.appendChild(img);
+            }
+        })();
+
+        // countdown
+        function startCountdown() {
+            const target = new Date('2026-09-10T00:00:00');
+            function tick() {
+                const now = new Date();
+                const diff = target - now;
+                if (diff <= 0) {
+                    document.getElementById('countdownScreen').style.opacity = '0';
+                    setTimeout(() => {
+                        document.getElementById('countdownScreen').style.display = 'none';
+                        document.getElementById('lockScreen').style.display = 'flex';
+                    }, 1000);
+                    return;
+                }
+                const days = Math.floor(diff / (1000*60*60*24));
+                const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+                const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+                const seconds = Math.floor((diff % (1000*60)) / 1000);
+                document.getElementById('days').innerText = String(days).padStart(2, '0');
+                document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+            }
+            tick();
+            setInterval(tick, 1000);
+        }
+        window.addEventListener('load', startCountdown);
+
+        // password check + start music on unlock
+        function checkPassword() {
+            const input = document.getElementById('passwordInput');
+            if (input.value === correctPassword) {
+                document.getElementById('lockScreen').style.display = 'none';
+                const main = document.getElementById('mainContent');
+                main.style.display = 'flex';
+                setTimeout(() => {
+                    main.style.opacity = '1';
+                    createHearts();
+                    // —— START MUSIC when unlocked ——
+                    const music = document.getElementById('bgMusic');
+                    music.play().then(() => {
+                        musicPlaying = true;
+                        toggleBtn.textContent = '♫';
+                    }).catch(() => {
+                        // if autoplay blocked, user can click toggle
+                        musicPlaying = false;
+                        toggleBtn.textContent = '♩';
+                    });
+                }, 120);
+            } else {
+                document.getElementById('errorMsg').innerText = 'not quite, try again.';
+            }
+        }
+        document.getElementById('passwordInput').addEventListener('keypress', e => { if (e.key === 'Enter') checkPassword(); });
+
+        // toggle panels
+        function showContent(id) {
+            document.getElementById('gift').classList.remove('active');
+            document.getElementById('message').classList.remove('active');
+            document.getElementById(id).classList.add('active');
+        }
+
+        // floating hearts
+        function createHearts() {
+            const bg = document.getElementById('bgHearts');
+            const symbols = ['♥', '♡', '✿', '♥', '♡'];
+            for (let i = 0; i < 28; i++) {
+                const el = document.createElement('div');
+                el.className = 'heart';
+                el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                el.style.left = (Math.random() * 100) + 'vw';
+                el.style.animationDelay = (Math.random() * 14) + 's';
+                el.style.fontSize = (12 + Math.random() * 22) + 'px';
+                bg.appendChild(el);
+            }
+        }
+
+        // music controls
+        const music = document.getElementById('bgMusic');
+        const toggleBtn = document.getElementById('musicToggle');
+        let musicPlaying = false;
+
+        // initial state: muted until unlock (but we set toggle icon)
+        toggleBtn.textContent = '♩';
+
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (musicPlaying) {
+                music.pause();
+                musicPlaying = false;
+                toggleBtn.textContent = '♩';
+            } else {
+                music.play().catch(() => {});
+                musicPlaying = true;
+                toggleBtn.textContent = '♫';
+            }
+        });
+
+        // if user clicks anywhere after unlock, try to resume if needed
+        document.addEventListener('click', function init() {
+            // only if music is not playing and mainContent is visible
+            if (!musicPlaying && document.getElementById('mainContent').style.display === 'flex') {
+                music.play().catch(() => {});
+                musicPlaying = true;
+                toggleBtn.textContent = '♫';
+            }
+        }, { once: false }); // we keep it as a general helper, but we don't want to spam
+        // better: only one-time auto attempt after unlock is already handled above
+    </script>
+</body>
+</html>

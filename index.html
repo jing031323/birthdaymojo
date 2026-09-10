@@ -416,8 +416,6 @@
     <!-- background music (starts playing after unlock) -->
     <audio id="bgMusic" loop preload="auto">
         <source src="audio/Johnoy Danao - Ikaw at Ako (official music video).mp3" type="audio/mpeg">
-        <!-- fallback: if you have ogg -->
-        <!-- <source src="audio/Johnoy Danao - Ikaw at Ako (official music video).ogg" type="audio/ogg"> -->
     </audio>
 
     <!-- FRONT -->
@@ -442,7 +440,7 @@
             <h2>your day</h2>
             <p>a little password to open your gift.</p>
             <input type="password" id="passwordInput" class="lock-input" placeholder="· · · · ·" maxlength="10">
-            <button class="lock-btn" onclick="checkPassword()">unlock</button>
+            <button class="lock-btn" id="unlockBtn">unlock</button>
             <div class="lock-error" id="errorMsg"></div>
         </div>
     </div>
@@ -469,8 +467,8 @@
             </div>
 
             <div class="buttons">
-                <button class="btn btn-gift" onclick="showContent('gift')">gift</button>
-                <button class="btn btn-message" onclick="showContent('message')">letter</button>
+                <button class="btn btn-gift" id="giftBtn">gift</button>
+                <button class="btn btn-message" id="messageBtn">letter</button>
             </div>
 
             <div id="gift" class="content-panel">
@@ -484,8 +482,8 @@
             <div id="message" class="content-panel">
                 <div class="message-content">
                     <h3>a note</h3>
-                    <p>happy birthday. from the first day, everything felt lighter,kase naman lagi kang galit.</p>
-                    <p> you always choose to remind my sin niether you can reminds my good thing about.</p>>
+                    <p>happy birthday. from the first day, everything felt lighter, kase naman lagi kang galit.</p>
+                    <p>you always choose to remind my sin neither you can reminds my good thing about.</p>
                     <p>i hope this year brings you quiet joy, good coffee, and the kind of laughter that stays.</p>
                     <p style="margin-top:20px; text-align:right; color:var(--coral);">— always</p>
                 </div>
@@ -497,17 +495,44 @@
     <button id="musicToggle" aria-label="music">♫</button>
 
     <script>
-        const correctPassword = "09102002";
+        // ===== GLOBAL VARIABLES =====
+        var correctPassword = "09102002";
+        var musicPlaying = false;
+        var isUnlocked = false;
+        var countdownFinished = false;
 
-        // photo rain
+        // ===== MUSIC =====
+        var music = document.getElementById('bgMusic');
+        var toggleBtn = document.getElementById('musicToggle');
+
+        toggleBtn.textContent = '♩';
+
+        toggleBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (musicPlaying) {
+                music.pause();
+                musicPlaying = false;
+                toggleBtn.textContent = '♩';
+            } else {
+                music.play().then(function() {
+                    musicPlaying = true;
+                    toggleBtn.textContent = '♫';
+                }).catch(function() {
+                    toggleBtn.textContent = '♩';
+                });
+            }
+        });
+
+        // ===== PHOTO RAIN =====
         (function createPhotoRain() {
-            const container = document.getElementById('photoRain');
-            for (let i = 0; i < 22; i++) {
-                const img = document.createElement('img');
+            var container = document.getElementById('photoRain');
+            if (!container) return;
+            for (var i = 0; i < 22; i++) {
+                var img = document.createElement('img');
                 img.src = 'images/her.jpg';
                 img.className = 'floating-img';
                 img.style.left = (5 + Math.random() * 90) + 'vw';
-                const size = 50 + Math.random() * 70;
+                var size = 50 + Math.random() * 70;
                 img.style.width = size + 'px';
                 img.style.height = size + 'px';
                 img.style.animationDuration = (10 + Math.random() * 14) + 's';
@@ -516,74 +541,93 @@
             }
         })();
 
-        // countdown
+        // ===== COUNTDOWN =====
         function startCountdown() {
-            const target = new Date('2026-09-10T00:00:00');
+            var target = new Date('2026-09-10T00:00:00').getTime();
+            var countdownScreen = document.getElementById('countdownScreen');
+            var lockScreen = document.getElementById('lockScreen');
+            var intervalId = null;
+
             function tick() {
-                const now = new Date();
-                const diff = target - now;
+                if (countdownFinished) return;
+                var now = new Date().getTime();
+                var diff = target - now;
+
                 if (diff <= 0) {
-                    document.getElementById('countdownScreen').style.opacity = '0';
-                    setTimeout(() => {
-                        document.getElementById('countdownScreen').style.display = 'none';
-                        document.getElementById('lockScreen').style.display = 'flex';
+                    countdownFinished = true;
+                    if (intervalId) clearInterval(intervalId);
+                    countdownScreen.style.opacity = '0';
+                    setTimeout(function() {
+                        countdownScreen.style.display = 'none';
+                        lockScreen.style.display = 'flex';
                     }, 1000);
                     return;
                 }
-                const days = Math.floor(diff / (1000*60*60*24));
-                const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-                const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
-                const seconds = Math.floor((diff % (1000*60)) / 1000);
+
+                var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
                 document.getElementById('days').innerText = String(days).padStart(2, '0');
                 document.getElementById('hours').innerText = String(hours).padStart(2, '0');
                 document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
                 document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
             }
-            tick();
-            setInterval(tick, 1000);
-        }
-        window.addEventListener('load', startCountdown);
 
-        // password check + start music on unlock
+            tick();
+            intervalId = setInterval(tick, 1000);
+        }
+
+        // ===== UNLOCK FUNCTION =====
         function checkPassword() {
-            const input = document.getElementById('passwordInput');
+            if (isUnlocked) return;
+
+            var input = document.getElementById('passwordInput');
+            var errorMsg = document.getElementById('errorMsg');
+
             if (input.value === correctPassword) {
+                isUnlocked = true;
                 document.getElementById('lockScreen').style.display = 'none';
-                const main = document.getElementById('mainContent');
+
+                var main = document.getElementById('mainContent');
                 main.style.display = 'flex';
-                setTimeout(() => {
+                setTimeout(function() {
                     main.style.opacity = '1';
-                    createHearts();
-                    // —— START MUSIC when unlocked ——
-                    const music = document.getElementById('bgMusic');
-                    music.play().then(() => {
-                        musicPlaying = true;
-                        toggleBtn.textContent = '♫';
-                    }).catch(() => {
-                        // if autoplay blocked, user can click toggle
-                        musicPlaying = false;
-                        toggleBtn.textContent = '♩';
-                    });
-                }, 120);
+                }, 50);
+
+                createHearts();
+
+                // try to play music
+                music.play().then(function() {
+                    musicPlaying = true;
+                    toggleBtn.textContent = '♫';
+                }).catch(function() {
+                    musicPlaying = false;
+                    toggleBtn.textContent = '♩';
+                });
+
+                errorMsg.innerText = '';
             } else {
-                document.getElementById('errorMsg').innerText = 'not quite, try again.';
+                errorMsg.innerText = 'not quite, try again.';
             }
         }
-        document.getElementById('passwordInput').addEventListener('keypress', e => { if (e.key === 'Enter') checkPassword(); });
 
-        // toggle panels
+        // ===== SHOW PANELS =====
         function showContent(id) {
             document.getElementById('gift').classList.remove('active');
             document.getElementById('message').classList.remove('active');
             document.getElementById(id).classList.add('active');
         }
 
-        // floating hearts
+        // ===== FLOATING HEARTS =====
         function createHearts() {
-            const bg = document.getElementById('bgHearts');
-            const symbols = ['♥', '♡', '✿', '♥', '♡'];
-            for (let i = 0; i < 28; i++) {
-                const el = document.createElement('div');
+            var bg = document.getElementById('bgHearts');
+            if (!bg) return;
+            bg.innerHTML = '';
+            var symbols = ['♥', '♡', '✿', '♥', '♡'];
+            for (var i = 0; i < 28; i++) {
+                var el = document.createElement('div');
                 el.className = 'heart';
                 el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
                 el.style.left = (Math.random() * 100) + 'vw';
@@ -593,37 +637,27 @@
             }
         }
 
-        // music controls
-        const music = document.getElementById('bgMusic');
-        const toggleBtn = document.getElementById('musicToggle');
-        let musicPlaying = false;
+        // ===== WIRE UP EVENT LISTENERS =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // countdown
+            startCountdown();
 
-        // initial state: muted until unlock (but we set toggle icon)
-        toggleBtn.textContent = '♩';
+            // unlock button
+            document.getElementById('unlockBtn').addEventListener('click', checkPassword);
 
-        toggleBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (musicPlaying) {
-                music.pause();
-                musicPlaying = false;
-                toggleBtn.textContent = '♩';
-            } else {
-                music.play().catch(() => {});
-                musicPlaying = true;
-                toggleBtn.textContent = '♫';
-            }
+            // enter key on password
+            document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') checkPassword();
+            });
+
+            // gift & message buttons
+            document.getElementById('giftBtn').addEventListener('click', function() {
+                showContent('gift');
+            });
+            document.getElementById('messageBtn').addEventListener('click', function() {
+                showContent('message');
+            });
         });
-
-        // if user clicks anywhere after unlock, try to resume if needed
-        document.addEventListener('click', function init() {
-            // only if music is not playing and mainContent is visible
-            if (!musicPlaying && document.getElementById('mainContent').style.display === 'flex') {
-                music.play().catch(() => {});
-                musicPlaying = true;
-                toggleBtn.textContent = '♫';
-            }
-        }, { once: false }); // we keep it as a general helper, but we don't want to spam
-        // better: only one-time auto attempt after unlock is already handled above
     </script>
 </body>
 </html>

@@ -26,7 +26,6 @@
             overflow-x: hidden;
         }
 
-        /* ––– front cover ––– */
         #countdownScreen {
             position: fixed;
             top: 0; left: 0;
@@ -123,7 +122,6 @@
             letter-spacing: 0.3px;
         }
 
-        /* ––– lock ––– */
         #lockScreen {
             position: fixed;
             top: 0; left: 0;
@@ -145,63 +143,26 @@
             box-shadow: 0 20px 48px rgba(0,0,0,0.08);
             border: 1px solid #eccbc5;
         }
-        .lock-icon {
-            font-size: 2.8rem;
-            margin-bottom: 8px;
-            opacity: 0.7;
-        }
+        .lock-icon { font-size: 2.8rem; margin-bottom: 8px; opacity: 0.7; }
         .lock-box h2 {
-            font-weight: 400;
-            font-size: 1.8rem;
-            margin: 6px 0 10px;
-            color: var(--coral);
+            font-weight: 400; font-size: 1.8rem; margin: 6px 0 10px; color: var(--coral);
         }
-        .lock-box p {
-            color: #4f3b38;
-            font-size: 0.95rem;
-            margin-bottom: 24px;
-        }
+        .lock-box p { color: #4f3b38; font-size: 0.95rem; margin-bottom: 24px; }
         .lock-input {
-            width: 100%;
-            padding: 14px 12px;
-            font-size: 1.1rem;
-            text-align: center;
-            border: 1px solid #ddd;
-            border-radius: 60px;
-            margin-bottom: 18px;
-            background: #fcf8f6;
-            letter-spacing: 2px;
-            outline: none;
-            transition: border 0.2s;
+            width: 100%; padding: 14px 12px; font-size: 1.1rem; text-align: center;
+            border: 1px solid #ddd; border-radius: 60px; margin-bottom: 18px;
+            background: #fcf8f6; letter-spacing: 2px; outline: none; transition: border 0.2s;
         }
-        .lock-input:focus {
-            border-color: var(--coral);
-        }
+        .lock-input:focus { border-color: var(--coral); }
         .lock-btn {
-            width: 100%;
-            padding: 14px;
-            background: var(--coral);
-            color: white;
-            border: none;
-            border-radius: 60px;
-            font-size: 1rem;
-            font-weight: 400;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: background 0.2s;
+            width: 100%; padding: 14px; background: var(--coral); color: white;
+            border: none; border-radius: 60px; font-size: 1rem; font-weight: 400;
+            letter-spacing: 1px; cursor: pointer; transition: background 0.2s;
             box-shadow: 0 6px 12px rgba(180, 80, 70, 0.2);
         }
-        .lock-btn:hover {
-            background: #b85a5a;
-        }
-        .lock-error {
-            color: #b85a5a;
-            font-size: 0.8rem;
-            margin-top: 12px;
-            height: 20px;
-        }
+        .lock-btn:hover { background: #b85a5a; }
+        .lock-error { color: #b85a5a; font-size: 0.8rem; margin-top: 12px; height: 20px; }
 
-        /* ––– main ––– */
         #mainContent {
             display: none;
             opacity: 0;
@@ -225,147 +186,87 @@
         }
 
         h1 {
-            font-weight: 400;
-            font-size: 2.2rem;
-            color: var(--coral);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            margin: 0 0 6px;
+            font-weight: 400; font-size: 2.2rem; color: var(--coral);
+            display: flex; flex-direction: column; align-items: center;
+            gap: 4px; margin: 0 0 6px;
         }
         .cake-img {
-            width: 100px;
-            height: auto;
+            width: 100px; height: auto;
             border-radius: 60px 20px 60px 20px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.04);
-            margin-bottom: 8px;
-            transition: transform 0.3s;
+            margin-bottom: 8px; transition: transform 0.3s;
         }
-        .cake-img:hover {
-            transform: scale(1.01);
-        }
+        .cake-img:hover { transform: scale(1.01); }
 
         .hero-gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 12px;
-            margin: 28px 0 24px;
+            gap: 12px; margin: 28px 0 24px;
         }
         .hero-gallery img {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
+            width: 100%; height: 120px; object-fit: cover;
             border-radius: 30px 10px 30px 10px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-            transition: 0.2s;
-            border: 1px solid rgba(255,255,255,0.5);
+            transition: 0.2s; border: 1px solid rgba(255,255,255,0.5);
+            cursor: pointer;   /* shows it's clickable */
         }
         .hero-gallery img:hover {
             transform: scale(1.02) rotate(-1deg);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.10);
         }
 
         .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin: 16px 0 10px;
-            flex-wrap: wrap;
+            display: flex; justify-content: center; gap: 16px;
+            margin: 16px 0 10px; flex-wrap: wrap;
         }
         .btn {
-            padding: 12px 28px;
-            font-size: 0.95rem;
-            border: none;
-            border-radius: 60px;
-            cursor: pointer;
-            font-weight: 400;
-            transition: all 0.2s;
-            background: white;
-            color: var(--ink);
+            padding: 12px 28px; font-size: 0.95rem; border: none;
+            border-radius: 60px; cursor: pointer; font-weight: 400;
+            transition: all 0.2s; background: white; color: var(--ink);
             box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-            border: 1px solid #e5d3ce;
-            letter-spacing: 0.5px;
+            border: 1px solid #e5d3ce; letter-spacing: 0.5px;
         }
-        .btn-gift {
-            background: var(--coral);
-            color: white;
-            border: 1px solid var(--coral);
-        }
-        .btn-gift:hover {
-            background: #b85a5a;
-            transform: translateY(-2px);
-        }
-        .btn-message {
-            background: #f3e1dd;
-            color: var(--ink);
-            border: 1px solid #dcc6c0;
-        }
-        .btn-message:hover {
-            background: #ecd9d4;
-            transform: translateY(-2px);
-        }
+        .btn-gift { background: var(--coral); color: white; border: 1px solid var(--coral); }
+        .btn-gift:hover { background: #b85a5a; transform: translateY(-2px); }
+        .btn-message { background: #f3e1dd; color: var(--ink); border: 1px solid #dcc6c0; }
+        .btn-message:hover { background: #ecd9d4; transform: translateY(-2px); }
 
         .content-panel {
-            display: none;
-            margin-top: 24px;
-            padding: 28px 20px;
+            display: none; margin-top: 24px; padding: 28px 20px;
             border-radius: 40px 12px 40px 12px;
             background: rgba(255, 255, 255, 0.5);
             border: 1px solid #eddad5;
             animation: fadeSlide 0.5s ease;
         }
-        .content-panel.active {
-            display: block;
-        }
+        .content-panel.active { display: block; }
         @keyframes fadeSlide {
             0% { opacity: 0; transform: translateY(12px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
         .gift-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px 30px;
-            font-size: 3.4rem;
-            padding: 10px 0;
-            color: #b85a5a;
+            display: flex; flex-wrap: wrap; justify-content: center;
+            gap: 20px 30px; font-size: 3.4rem; padding: 10px 0; color: #b85a5a;
         }
 
         .message-content {
-            font-size: 1.05rem;
-            line-height: 1.7;
-            color: #3f302d;
-            text-align: left;
-            padding: 0 6px;
+            font-size: 1.05rem; line-height: 1.7; color: #3f302d;
+            text-align: left; padding: 0 6px;
         }
         .message-content h3 {
-            color: var(--coral);
-            text-align: center;
-            font-weight: 400;
-            font-size: 1.6rem;
-            margin: 0 0 16px;
-            letter-spacing: 1px;
+            color: var(--coral); text-align: center; font-weight: 400;
+            font-size: 1.6rem; margin: 0 0 16px; letter-spacing: 1px;
         }
-        .message-content p {
-            margin: 12px 0;
-        }
+        .message-content p { margin: 12px 0; }
 
-        /* hearts background */
         .hearts-bg {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: -1; overflow: hidden;
         }
         .heart {
-            position: absolute;
-            bottom: -80px;
+            position: absolute; bottom: -80px;
             color: rgba(200, 130, 120, 0.12);
-            font-size: 22px;
-            animation: floatUp 14s linear infinite;
+            font-size: 22px; animation: floatUp 14s linear infinite;
         }
         @keyframes floatUp {
             0% { transform: translateY(0) rotate(0deg); opacity: 0.1; }
@@ -373,34 +274,89 @@
             100% { transform: translateY(-1200px) rotate(20deg); opacity: 0; }
         }
 
-        /* music toggle */
         #musicToggle {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 9999;
-            background: rgba(255, 247, 245, 0.8);
-            backdrop-filter: blur(4px);
-            border: 1px solid #dcc6c0;
-            border-radius: 40px;
-            width: 52px;
-            height: 52px;
-            font-size: 24px;
+            position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+            background: rgba(255, 247, 245, 0.8); backdrop-filter: blur(4px);
+            border: 1px solid #dcc6c0; border-radius: 40px;
+            width: 52px; height: 52px; font-size: 24px;
             box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            cursor: pointer; transition: 0.2s;
+            display: flex; align-items: center; justify-content: center;
             color: var(--coral);
         }
         #musicToggle:hover {
-            background: var(--coral);
-            color: white;
-            border-color: var(--coral);
+            background: var(--coral); color: white; border-color: var(--coral);
         }
 
-        /* responsive */
+        /* ===== LIGHTBOX (full-screen photo viewer) ===== */
+        #lightbox {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(30, 20, 20, 0.92);
+            backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            padding: 30px;
+            cursor: zoom-out;
+        }
+        #lightbox.show {
+            display: flex;
+            opacity: 1;
+        }
+        #lightbox img {
+            max-width: 92vw;
+            max-height: 88vh;
+            border-radius: 24px 8px 24px 8px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+            border: 4px solid rgba(255,255,255,0.15);
+            object-fit: contain;
+            transform: scale(0.85);
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        #lightbox.show img {
+            transform: scale(1);
+        }
+        #lightboxClose {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            font-size: 26px;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+            backdrop-filter: blur(4px);
+        }
+        #lightboxClose:hover {
+            background: var(--coral);
+            border-color: var(--coral);
+            transform: rotate(90deg);
+        }
+        #lightboxCaption {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.75);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            font-style: italic;
+            pointer-events: none;
+        }
+
         @media (max-width: 480px) {
             .countdown-title { font-size: 1.3rem; }
             .time-number { font-size: 1.8rem; }
@@ -408,13 +364,14 @@
             h1 { font-size: 1.8rem; }
             .hero-gallery { grid-template-columns: repeat(3, 1fr); }
             .hero-gallery img { height: 90px; }
+            #lightboxClose { top: 12px; right: 12px; width: 42px; height: 42px; font-size: 22px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- background music (starts playing after unlock) -->
-    <audio id="bgMusic" loop preload="auto">
+    <!-- background music -->
+    <audio id="bgMusic" loop preload="none">
         <source src="audio/Johnoy Danao - Ikaw at Ako (official music video).mp3" type="audio/mpeg">
     </audio>
 
@@ -440,7 +397,7 @@
             <h2>your day</h2>
             <p>a little password to open your gift.</p>
             <input type="password" id="passwordInput" class="lock-input" placeholder="· · · · ·" maxlength="10">
-            <button class="lock-btn" id="unlockBtn">unlock</button>
+            <button class="lock-btn" onclick="checkPassword()">unlock</button>
             <div class="lock-error" id="errorMsg"></div>
         </div>
     </div>
@@ -450,25 +407,25 @@
         <div class="hearts-bg" id="bgHearts"></div>
         <div class="container">
             <h1>
-                <img src="images/cake.jpg" alt="cake" class="cake-img">
+                <img src="images/cake.jpg" alt="cake" class="cake-img" onerror="this.style.display='none'">
                 happy birthday
             </h1>
             <p style="color:#5f4a47; font-size:0.95rem; margin-top:-4px;">a little something for you</p>
 
-            <div class="hero-gallery">
-                <img src="images/jo.jpg" alt="photo">
-                <img src="images/jo1.jpg" alt="photo">
-                <img src="images/jo2.jpg" alt="photo">
-                <img src="images/jo3.jpg" alt="photo">
-                <img src="images/jo4.jpg" alt="photo">
-                <img src="images/jo5.jpg" alt="photo">
-                <img src="images/picture5.jpg" alt="photo">
-                <img src="images/picture6.jpg" alt="photo">
+            <div class="hero-gallery" id="heroGallery">
+                <img src="images/jo.jpg">
+                <img src="images/jo1.jpg">
+                <img src="images/jo2.jpg">
+                <img src="images/jo3.jpg">
+                <img src="images/jo4.jpg">
+                <img src="images/jo5.jpg" 
+                <img src="images/picture5.jpg">
+                <img src="images/picture6.jpg">
             </div>
 
             <div class="buttons">
-                <button class="btn btn-gift" id="giftBtn">gift</button>
-                <button class="btn btn-message" id="messageBtn">letter</button>
+                <button class="btn btn-gift" onclick="showContent('gift')">gift</button>
+                <button class="btn btn-message" onclick="showContent('message')">letter</button>
             </div>
 
             <div id="gift" class="content-panel">
@@ -492,47 +449,31 @@
     </div>
 
     <!-- music toggle button -->
-    <button id="musicToggle" aria-label="music">♫</button>
+    <button id="musicToggle" aria-label="music">♩</button>
+
+    <!-- LIGHTBOX / photo viewer -->
+    <div id="lightbox" aria-hidden="true">
+        <button id="lightboxClose" aria-label="close">✕</button>
+        <img id="lightboxImg" src="" alt="view">
+        <div id="lightboxCaption">click anywhere to close</div>
+    </div>
 
     <script>
-        // ===== GLOBAL VARIABLES =====
-        var correctPassword = "09102002";
-        var musicPlaying = false;
-        var isUnlocked = false;
-        var countdownFinished = false;
+        const correctPassword = "09102002";
 
-        // ===== MUSIC =====
-        var music = document.getElementById('bgMusic');
-        var toggleBtn = document.getElementById('musicToggle');
-
-        toggleBtn.textContent = '♩';
-
-        toggleBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            if (musicPlaying) {
-                music.pause();
-                musicPlaying = false;
-                toggleBtn.textContent = '♩';
-            } else {
-                music.play().then(function() {
-                    musicPlaying = true;
-                    toggleBtn.textContent = '♫';
-                }).catch(function() {
-                    toggleBtn.textContent = '♩';
-                });
-            }
-        });
-
-        // ===== PHOTO RAIN =====
+        // ----- PHOTO RAIN -----
         (function createPhotoRain() {
-            var container = document.getElementById('photoRain');
+            const container = document.getElementById('photoRain');
             if (!container) return;
-            for (var i = 0; i < 22; i++) {
-                var img = document.createElement('img');
+            for (let i = 0; i < 15; i++) {
+                const img = document.createElement('img');
                 img.src = 'images/her.jpg';
+                img.onerror = function() {
+                    this.src = 'https://picsum.photos/100/100?random=' + i;
+                };
                 img.className = 'floating-img';
                 img.style.left = (5 + Math.random() * 90) + 'vw';
-                var size = 50 + Math.random() * 70;
+                const size = 50 + Math.random() * 70;
                 img.style.width = size + 'px';
                 img.style.height = size + 'px';
                 img.style.animationDuration = (10 + Math.random() * 14) + 's';
@@ -541,93 +482,112 @@
             }
         })();
 
-        // ===== COUNTDOWN =====
+        // ----- COUNTDOWN -----
+        const targetDate = new Date('2026-09-10T00:00:00').getTime();
+        const isBirthdayAlready = Date.now() >= targetDate;
+
         function startCountdown() {
-            var target = new Date('2026-09-10T00:00:00').getTime();
-            var countdownScreen = document.getElementById('countdownScreen');
-            var lockScreen = document.getElementById('lockScreen');
-            var intervalId = null;
-
             function tick() {
-                if (countdownFinished) return;
-                var now = new Date().getTime();
-                var diff = target - now;
-
+                const now = Date.now();
+                const diff = targetDate - now;
                 if (diff <= 0) {
-                    countdownFinished = true;
-                    if (intervalId) clearInterval(intervalId);
-                    countdownScreen.style.opacity = '0';
-                    setTimeout(function() {
-                        countdownScreen.style.display = 'none';
-                        lockScreen.style.display = 'flex';
-                    }, 1000);
+                    const cd = document.getElementById('countdownScreen');
+                    if (cd) cd.style.opacity = '0';
+                    setTimeout(() => {
+                        if (cd) cd.style.display = 'none';
+                        const ls = document.getElementById('lockScreen');
+                        if (ls) ls.style.display = 'flex';
+                    }, 800);
                     return;
                 }
-
-                var days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-                document.getElementById('days').innerText = String(days).padStart(2, '0');
-                document.getElementById('hours').innerText = String(hours).padStart(2, '0');
-                document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
-                document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+                const days = Math.floor(diff / (1000*60*60*24));
+                const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+                const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+                const seconds = Math.floor((diff % (1000*60)) / 1000);
+                const dEl = document.getElementById('days');
+                const hEl = document.getElementById('hours');
+                const mEl = document.getElementById('minutes');
+                const sEl = document.getElementById('seconds');
+                if (dEl) dEl.innerText = String(days).padStart(2, '0');
+                if (hEl) hEl.innerText = String(hours).padStart(2, '0');
+                if (mEl) mEl.innerText = String(minutes).padStart(2, '0');
+                if (sEl) sEl.innerText = String(seconds).padStart(2, '0');
             }
-
+            if (isBirthdayAlready) {
+                document.getElementById('countdownScreen').style.display = 'none';
+                document.getElementById('lockScreen').style.display = 'flex';
+                return;
+            }
             tick();
-            intervalId = setInterval(tick, 1000);
+            setInterval(tick, 1000);
         }
 
-        // ===== UNLOCK FUNCTION =====
-        function checkPassword() {
-            if (isUnlocked) return;
+        // ----- MUSIC (manual only) -----
+        const music = document.getElementById('bgMusic');
+        const toggleBtn = document.getElementById('musicToggle');
+        let musicPlaying = false;
 
-            var input = document.getElementById('passwordInput');
-            var errorMsg = document.getElementById('errorMsg');
-
-            if (input.value === correctPassword) {
-                isUnlocked = true;
-                document.getElementById('lockScreen').style.display = 'none';
-
-                var main = document.getElementById('mainContent');
-                main.style.display = 'flex';
-                setTimeout(function() {
-                    main.style.opacity = '1';
-                }, 50);
-
-                createHearts();
-
-                // try to play music
-                music.play().then(function() {
+        toggleBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (musicPlaying) {
+                music.pause();
+                musicPlaying = false;
+                toggleBtn.textContent = '♩';
+            } else {
+                music.play().then(() => {
                     musicPlaying = true;
                     toggleBtn.textContent = '♫';
-                }).catch(function() {
+                }).catch(err => {
+                    console.warn('music play failed:', err);
                     musicPlaying = false;
                     toggleBtn.textContent = '♩';
                 });
+            }
+        });
 
-                errorMsg.innerText = '';
+        // ----- PASSWORD -----
+        function checkPassword() {
+            const input = document.getElementById('passwordInput');
+            if (!input) return;
+            if (input.value === correctPassword) {
+                document.getElementById('lockScreen').style.display = 'none';
+                const main = document.getElementById('mainContent');
+                main.style.display = 'flex';
+                requestAnimationFrame(() => { main.style.opacity = '1'; });
+                createHearts();
+                attachGalleryListeners();  // hook up photo clicks
+                music.play().then(() => {
+                    musicPlaying = true;
+                    toggleBtn.textContent = '♫';
+                }).catch(() => {
+                    musicPlaying = false;
+                    toggleBtn.textContent = '♩';
+                });
             } else {
-                errorMsg.innerText = 'not quite, try again.';
+                document.getElementById('errorMsg').innerText = 'not quite, try again.';
             }
         }
 
-        // ===== SHOW PANELS =====
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        // ----- PANEL TOGGLE -----
         function showContent(id) {
             document.getElementById('gift').classList.remove('active');
             document.getElementById('message').classList.remove('active');
-            document.getElementById(id).classList.add('active');
+            const panel = document.getElementById(id);
+            if (panel) panel.classList.add('active');
         }
 
-        // ===== FLOATING HEARTS =====
+        // ----- HEARTS -----
         function createHearts() {
-            var bg = document.getElementById('bgHearts');
+            const bg = document.getElementById('bgHearts');
             if (!bg) return;
             bg.innerHTML = '';
-            var symbols = ['♥', '♡', '✿', '♥', '♡'];
-            for (var i = 0; i < 28; i++) {
-                var el = document.createElement('div');
+            const symbols = ['♥', '♡', '✿', '♥', '♡'];
+            for (let i = 0; i < 24; i++) {
+                const el = document.createElement('div');
                 el.className = 'heart';
                 el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
                 el.style.left = (Math.random() * 100) + 'vw';
@@ -637,27 +597,67 @@
             }
         }
 
-        // ===== WIRE UP EVENT LISTENERS =====
-        document.addEventListener('DOMContentLoaded', function() {
-            // countdown
-            startCountdown();
+        // =====================================================
+        //  LIGHTBOX  —  click a photo to view it full-screen
+        // =====================================================
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxClose = document.getElementById('lightboxClose');
 
-            // unlock button
-            document.getElementById('unlockBtn').addEventListener('click', checkPassword);
+        function openLightbox(src, alt) {
+            lightboxImg.src = src;
+            lightboxImg.alt = alt || 'photo';
+            lightbox.classList.add('show');
+            lightbox.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';  // lock background scroll
+        }
 
-            // enter key on password
-            document.getElementById('passwordInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') checkPassword();
-            });
+        function closeLightbox() {
+            lightbox.classList.remove('show');
+            lightbox.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            // after fade-out, clear the image so it doesn't flash next time
+            setTimeout(() => { lightboxImg.src = ''; }, 350);
+        }
 
-            // gift & message buttons
-            document.getElementById('giftBtn').addEventListener('click', function() {
-                showContent('gift');
+        // Attach click listeners to every gallery photo
+        function attachGalleryListeners() {
+            const gallery = document.getElementById('heroGallery');
+            if (!gallery) return;
+            gallery.querySelectorAll('img').forEach(img => {
+                // remove any old listener first (avoid duplicates if unlock runs twice)
+                img.replaceWith(img.cloneNode(true));
             });
-            document.getElementById('messageBtn').addEventListener('click', function() {
-                showContent('message');
+            // after clone, re-query and attach
+            gallery.querySelectorAll('img').forEach(img => {
+                img.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    openLightbox(this.src, this.alt);
+                });
             });
+        }
+
+        // Close on: X button, click on dark background, or Esc key
+        lightboxClose.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closeLightbox();
         });
+        lightbox.addEventListener('click', function(e) {
+            // clicking anywhere on the overlay (not the image) closes it
+            if (e.target === lightbox) closeLightbox();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && lightbox.classList.contains('show')) {
+                closeLightbox();
+            }
+        });
+
+        // expose to global
+        window.checkPassword = checkPassword;
+        window.showContent = showContent;
+
+        // ----- START -----
+        window.addEventListener('load', startCountdown);
     </script>
 </body>
 </html>
